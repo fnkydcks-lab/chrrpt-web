@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "MAB45MZ6SR.com.beheard.chrrpt",
+        "paths": ["/*"]
+      }
+    ]
+  }
+}
