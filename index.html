@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chrrpt — be a voice. not an echo.</title>
+  <meta name="description" content="Chrrpt is voice messaging built for people who actually have something to say.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+
+    .wordmark {
+      font-size: clamp(64px, 16vw, 120px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      color: #FFCC4F;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .tagline {
+      font-size: clamp(16px, 4vw, 22px);
+      color: #CC0093;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .sub {
+      font-size: clamp(13px, 3vw, 16px);
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 56px;
+    }
+
+    .cta {
+      display: inline-block;
+      background: #CC0093;
+      color: #fff;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 700;
+      padding: 16px 40px;
+      border-radius: 12px;
+      letter-spacing: 0.3px;
+      transition: opacity 0.15s;
+    }
+
+    .cta:hover { opacity: 0.85; }
+
+    footer {
+      position: fixed;
+      bottom: 24px;
+      display: flex;
+      gap: 24px;
+      font-size: 13px;
+    }
+
+    footer a {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: rgba(255,255,255,0.7); }
+  </style>
+</head>
+<body>
+  <div class="wordmark">Chrrpt</div>
+  <div class="tagline">be a voice. not an echo.</div>
+  <div class="sub">be heard.</div>
+  <a class="cta" href="https://apps.apple.com/app/chrrpt">Download on the App Store</a>
+
+  <footer>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </footer>
+</body>
+</html>
