@@ -6,7 +6,7 @@
   <title>Chrrpt</title>
   <meta name="description" content="Add this person on Chrrpt — voice messaging built for people who actually have something to say.">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
   <style>
     :root {
       --rich-black: #0D1117;
@@ -223,15 +223,18 @@
           </div>
         </div>
         <div class="qr-wrap">
-          <div class="qr-box"><canvas id="qr"></canvas></div>
+          <div class="qr-box"><div id="qr"></div></div>
           <span class="qr-hint">Scan with Chrrpt to add</span>
         </div>
       `;
 
-      QRCode.toCanvas(document.getElementById('qr'), deepLink, {
+      new QRCode(document.getElementById('qr'), {
+        text: deepLink,
         width: 200,
-        margin: 0,
-        color: { dark: '#0D1117', light: '#ffffff' },
+        height: 200,
+        colorDark: '#0D1117',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M,
       });
     }
 
