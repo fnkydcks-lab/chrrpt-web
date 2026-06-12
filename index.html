@@ -137,6 +137,25 @@
       margin-top: 6px;
     }
 
+    .footer {
+      position: fixed;
+      bottom: 16px;
+      right: 20px;
+      display: flex;
+      gap: 16px;
+      z-index: 10;
+    }
+    .footer a {
+      font-family: var(--font-j);
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .footer a:hover { color: rgba(255,255,255,0.9); }
+
     @media (max-width: 1100px) {
       .headline { font-size: clamp(18px, 3.1vw, 48px); letter-spacing: 0.14em; }
       .machine { width: 62vw; }
@@ -194,6 +213,11 @@
     <img class="machine" src="phonemate400.png" alt="Phone-Mate 400">
 
   </div>
+
+  <footer class="footer">
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </footer>
 
   <div class="toast" id="toast">Android coming soon 🤙</div>
 
