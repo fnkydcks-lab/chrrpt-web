@@ -84,6 +84,17 @@
       z-index: 1;
     }
 
+    /* rotary phone: sits on top of answering machine */
+    .phone {
+      position: absolute;
+      bottom: 22vw;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(160px, 26vw, 380px);
+      height: auto;
+      z-index: 3;
+    }
+
     /* block 1: welcome + headline — sits over machine top */
     .copy-top {
       position: relative;
@@ -211,6 +222,7 @@
     </div>
 
     <img class="machine" src="phonemate400.png" alt="Phone-Mate 400">
+    <img class="phone" src="phone.png" alt="Rotary Phone">
 
   </div>
 
