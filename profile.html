@@ -143,6 +143,20 @@
       font-size: 14px;
     }
 
+    .hello {
+      position: fixed;
+      bottom: -0.15em;
+      left: -0.05em;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: clamp(120px, 18vw, 260px);
+      font-weight: 900;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
     /* ── Mobile ── */
     @media (max-width: 600px) {
       body {
@@ -151,10 +165,13 @@
       }
 
       .card { width: 100%; max-width: 380px; }
+      .hello { display: none; }
     }
   </style>
 </head>
 <body>
+
+  <div class="hello">hello.</div>
 
   <div class="card">
     <div class="card-header">
