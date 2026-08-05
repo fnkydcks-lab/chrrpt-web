@@ -133,6 +133,33 @@
       letter-spacing: 0.3px;
     }
 
+    /* ── Add CTA ── */
+    .add-copy {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .add-subcopy {
+      color: var(--ink-dim);
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .open-btn {
+      display: block;
+      text-align: center;
+      background: var(--yellow);
+      color: var(--rich-black);
+      font-weight: 800;
+      font-size: 15px;
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 20px;
+    }
+
     /* ── States ── */
     .state-msg {
       flex: 1;
@@ -141,6 +168,7 @@
       justify-content: center;
       color: var(--ink-dim);
       font-size: 14px;
+      text-align: center;
     }
 
     .hello {
@@ -218,14 +246,15 @@
         .single();
 
       if (error || !data) {
-        body.innerHTML = `<div class="state-msg" style="font-size:11px;text-align:left;padding:16px;">ERR: ${JSON.stringify(error)}<br>ID: ${chrrptId}</div>`;
+        body.innerHTML = '<div class="state-msg">No profile here.</div>';
         return;
       }
 
-      const hex      = COLOR_MAP[data.color] ?? '#CC0093';
-      const id       = String(data.chrrpt_id).padStart(3, '0');
-      const deepLink = `chrrpt://add/${data.chrrpt_id}`;
-      const nickname = data.display_name || 'Unknown';
+      const hex        = COLOR_MAP[data.color] ?? '#CC0093';
+      const id         = String(data.chrrpt_id).padStart(3, '0');
+      const qrLink     = `chrrpt://add/${data.chrrpt_id}`;
+      const openAppUrl = `https://chrrpt.to/${data.chrrpt_id}`;
+      const nickname   = data.display_name || 'Unknown';
       const emoji    = data.emoji        || '';
 
       document.title = `${nickname} · Chrrpt`;
@@ -241,14 +270,17 @@
             ${emoji ? `<span class="emoji">${emoji}</span>` : ''}
           </div>
         </div>
+        <div class="add-copy">You're adding ${nickname} as a friend.</div>
+        <div class="add-subcopy">Open Chrrpt to complete it.</div>
+        <a class="open-btn" href="${openAppUrl}">Open Chrrpt</a>
         <div class="qr-wrap">
           <div class="qr-box"><div id="qr"></div></div>
-          <span class="qr-hint">Scan with Chrrpt to add</span>
+          <span class="qr-hint">Or scan with Chrrpt to add</span>
         </div>
       `;
 
       new QRCode(document.getElementById('qr'), {
-        text: deepLink,
+        text: qrLink,
         width: 200,
         height: 200,
         colorDark: '#0D1117',
