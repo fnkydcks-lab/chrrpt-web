@@ -253,7 +253,7 @@
       const hex        = COLOR_MAP[data.color] ?? '#CC0093';
       const id         = String(data.chrrpt_id).padStart(3, '0');
       const qrLink     = `chrrpt://add/${data.chrrpt_id}`;
-      const openAppUrl = `https://chrrpt.to/${data.chrrpt_id}`;
+      const openAppUrl = qrLink;
       const nickname   = data.display_name || 'Unknown';
       const emoji    = data.emoji        || '';
 
