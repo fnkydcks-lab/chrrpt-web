@@ -149,15 +149,44 @@
 
     .open-btn {
       display: block;
+      width: 100%;
       text-align: center;
       background: var(--yellow);
       color: var(--rich-black);
       font-weight: 800;
       font-size: 15px;
+      font-family: inherit;
       text-decoration: none;
+      border: none;
       border-radius: 12px;
       padding: 14px;
       margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .deep-link-status {
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .fallback {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .fallback-msg {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .fallback img {
+      height: 44px;
+      display: inline-block;
     }
 
     /* ── States ── */
@@ -253,7 +282,6 @@
       const hex        = COLOR_MAP[data.color] ?? '#CC0093';
       const id         = String(data.chrrpt_id).padStart(3, '0');
       const qrLink     = `chrrpt://add/${data.chrrpt_id}`;
-      const openAppUrl = qrLink;
       const nickname   = data.display_name || 'Unknown';
       const emoji    = data.emoji        || '';
 
@@ -272,7 +300,9 @@
         </div>
         <div class="add-copy">You're adding ${nickname} as a friend.</div>
         <div class="add-subcopy">Open Chrrpt to complete it.</div>
-        <a class="open-btn" href="${openAppUrl}">Open Chrrpt</a>
+        <div id="open-area">
+          <button class="open-btn" id="open-btn">Open Chrrpt</button>
+        </div>
         <div class="qr-wrap">
           <div class="qr-box"><div id="qr"></div></div>
           <span class="qr-hint">Or scan with Chrrpt to add</span>
@@ -287,6 +317,54 @@
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel.M,
       });
+
+      document.getElementById('open-btn').addEventListener('click', () => attemptOpenApp(qrLink, nickname));
+    }
+
+    // Deferred deep link: tell the user what's happening immediately, then
+    // detect (via Page Visibility — did the tab actually lose focus, meaning
+    // iOS/Android handed off to the app) whether it worked. If the tab is
+    // still here after a beat, Chrrpt isn't installed — show the right store
+    // badge instead of leaving the tap looking like it did nothing.
+    function attemptOpenApp(deepLink, nickname) {
+      const area = document.getElementById('open-area');
+      area.innerHTML = `<div class="deep-link-status">Taking you to Chrrpt now…</div>`;
+
+      let didHide = false;
+      const onVisibilityChange = () => { if (document.hidden) didHide = true; };
+      document.addEventListener('visibilitychange', onVisibilityChange);
+
+      window.location.href = deepLink;
+
+      setTimeout(() => {
+        document.removeEventListener('visibilitychange', onVisibilityChange);
+        if (didHide) return;
+
+        const ua = navigator.userAgent;
+        const isIOS = /iPhone|iPad|iPod/i.test(ua);
+        const isAndroid = /Android/i.test(ua);
+
+        let badge = `
+          <a href="https://apps.apple.com/us/app/chrrpt/id1641163466">
+            <img src="badges/Download-on-the-App-Store/US/Download_on_App_Store/Black_lockup/SVG/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="Download on the App Store">
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.beheard.chrrpt">
+            <img src="badges/Google Play Store Badge.png" alt="Get it on Google Play">
+          </a>
+        `;
+        if (isIOS) {
+          badge = `<a href="https://apps.apple.com/us/app/chrrpt/id1641163466"><img src="badges/Download-on-the-App-Store/US/Download_on_App_Store/Black_lockup/SVG/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="Download on the App Store"></a>`;
+        } else if (isAndroid) {
+          badge = `<a href="https://play.google.com/store/apps/details?id=com.beheard.chrrpt"><img src="badges/Google Play Store Badge.png" alt="Get it on Google Play"></a>`;
+        }
+
+        area.innerHTML = `
+          <div class="fallback">
+            <div class="fallback-msg">You need Chrrpt installed to add ${nickname}.</div>
+            ${badge}
+          </div>
+        `;
+      }, 1800);
     }
 
     load();
