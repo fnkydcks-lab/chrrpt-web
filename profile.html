@@ -257,6 +257,16 @@
     const raw = window.location.pathname.replace(/^\//, '').split('/')[0];
     const chrrptId = parseInt(raw, 10);
 
+    // display_name and emoji are user-controlled — emoji in particular has
+    // no server-side length/content constraint (only the app's UI picker
+    // limits it to 8 fixed emoji, which any direct API call bypasses).
+    // Escape before ever touching innerHTML.
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
     async function load() {
       const body = document.getElementById('card-body');
 
@@ -282,8 +292,8 @@
       const hex        = COLOR_MAP[data.color] ?? '#CC0093';
       const id         = String(data.chrrpt_id).padStart(3, '0');
       const qrLink     = `chrrpt://add/${data.chrrpt_id}`;
-      const nickname   = data.display_name || 'Unknown';
-      const emoji    = data.emoji        || '';
+      const nickname   = escapeHtml(data.display_name || 'Unknown');
+      const emoji    = escapeHtml(data.emoji        || '');
 
       document.title = `${nickname} · Chrrpt`;
 
