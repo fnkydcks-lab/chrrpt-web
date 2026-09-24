@@ -169,6 +169,11 @@
     }
     .footer a:hover { color: rgba(255,255,255,0.9); }
 
+    .footer a.credit {
+      color: rgba(242,194,0,0.7);
+    }
+    .footer a.credit:hover { color: var(--yellow); }
+
     @media (max-width: 1100px) {
       .headline { font-size: clamp(18px, 3.1vw, 48px); letter-spacing: 0.14em; }
       .machine { width: 62vw; }
@@ -230,6 +235,7 @@
   </div>
 
   <footer class="footer">
+    <a class="credit" href="https://sprnova.xyz" target="_blank" rel="noopener noreferrer">A Sprnova Joint</a>
     <a href="/privacy">Privacy</a>
     <a href="/terms">Terms</a>
   </footer>
